@@ -4,7 +4,11 @@
 
 **Integrantes:**  
 
----
+* Andrés Felipe Linares
+
+* Juan Esteban Roa
+
+* Juan Pablo Lozano 
 
 ## 1. Definición del Problema y Objetivos
 
