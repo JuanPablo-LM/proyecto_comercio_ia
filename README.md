@@ -13,7 +13,7 @@
 ## 1. Definición del Problema y Objetivos
 
 - **Objetivo General:** Identificar qué productos colombianos NO minero-energético tienen potencial exportador, identificando los productos y paises de destino.
-- **Descripción del Problema:** Historicamente en Colombia las exportaciones han estado muy concentradas en el sector extractivo o minero-energético. Sin embargo, en Colombia se ha intentado diversificar la canasta exportadora, tratando de identificar potencial exportador, tanto en productos alternativos, como en principales mercados para estos productos.  
+- **Descripción del Problema:** Históricamente en Colombia las exportaciones han estado muy concentradas en el sector extractivo o minero-energético. Sin embargo, en Colombia se ha intentado diversificar la canasta exportadora, tratando de identificar potencial exportador, tanto en productos alternativos, como en principales mercados para estos productos.  
 - **Entrega de Valor:** Será identificar las combinaciones producto-país con mayor oportunidad de exportación, que sirva como insumo para orientar decisiones de política comercial, promoción de exportaciones y priorización empresarial.
 
 
