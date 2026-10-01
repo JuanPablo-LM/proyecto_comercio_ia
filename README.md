@@ -44,14 +44,89 @@
 * CEPII Gravity Dataset (distancia, acuerdos comerciales)
 * Banco de la República (tipo de cambio).
 - **Descripción del Dataset:** 
-- **Variables Clave:**
-  * Distancia Geográfica: Distancia entre Colombia y el país destino.
-  * Tamaño del Mercado: Tamaño económico del país destino.
-  * Aranceles Aplicados: Arancel que enfrenta el producto colombiano al entrar al país destino.
-  * Acuerdos Comerciales Vigentes: Si existe un tratado de libre comercio con el país destino
-  * Tipo de Cambio Real: Competitividad cambiaria del peso colombiano frente al país destino.
+## Variables del panel
 
+El panel está organizado a nivel país socio-año (2017-2024), con Colombia
+como referencia fija. Las variables se agrupan en tres bloques:
 
+### Comercio (BACI, CEPII)
+
+- X_Total: Exportaciones de Colombia a sus socios, en USD constantes.
+- M_Total: Importaciones de Colombia desde sus socios, en USD constantes.
+- X_Fuels: Exportaciones de combustibles (capítulo HS 27) de Colombia a sus socios.
+- M_Fuels: Importaciones de combustibles de Colombia desde sus socios.
+- X_NoComb: Exportaciones no minero-energéticas de Colombia a sus socios.
+  Variable objetivo principal del modelo.
+- M_NoComb: Importaciones no minero-energéticas de Colombia desde sus socios.
+
+### Comercio por producto (UN Comtrade, nivel HS6)
+
+- hs6: Código de producto a 6 dígitos del Sistema Armonizado (HS).
+- hs6_name: Descripción del producto correspondiente al código HS6.
+- hs4 / hs2: Agregaciones del código de producto a 4 y 2 dígitos,
+  útiles para análisis a mayor nivel (sector/capítulo) cuando el
+  detalle de HS6 sea demasiado granular.
+- trade_value_usd: Valor comerciado del producto, en USD.
+- net_weight_kg: Peso neto del producto comerciado, en kilogramos. Permite
+  calcular valor unitario implícito (trade_value_usd / net_weight_kg) como
+  chequeo de calidad y como variable de interés en sí misma.
+- flow: Dirección del flujo comercial (exportación/importación).
+
+  Nota metodológica: los datos de producto cubren dos revisiones distintas
+  de la nomenclatura HS — HS2017 para 2017-2021 y HS2022 para 2022 en
+  adelante (campo hs_revision). Los códigos HS6 no son directamente
+  comparables entre ambos periodos sin una tabla de correlación oficial,
+  ya que la revisión HS2022 reorganizó varias categorías de producto. Este
+  cambio de nomenclatura debe tenerse en cuenta al interpretar variaciones
+  de comercio por producto que coincidan con el corte de 2022, para no
+  confundir un cambio de clasificación con un cambio real en el comercio.
+
+### Variables gravitacionales (CEPII Gravity Dataset)
+
+- dist: Distancia en kilómetros entre Colombia y el país socio.
+- contig: Frontera física común entre Colombia y el país socio (1/0).
+- comlang_off: Idioma oficial común, hablado por al menos el 9% de la
+  población de ambos países (1/0).
+- col_dep_ever: Relación de dependencia colonial histórica entre Colombia
+  y el país socio, en cualquier momento (1/0). Nota: esta es la variable
+  equivalente a "COLONIA" en el planteamiento original del proyecto; el
+  nombre cambió respecto a la propuesta inicial porque así está etiquetada
+  en la versión del Gravity Dataset utilizada (V202211).
+- fta_wto: Acuerdo de libre comercio vigente entre Colombia y el país
+  socio, notificado a la OMC (1/0). Variable equivalente a "FTA" en la
+  propuesta original.
+
+### Tamaño de mercado
+
+- gdp_d: PIB del país socio, en USD constantes. Para 2022-2024 (años no
+  cubiertos por el Gravity Dataset original, que llega hasta 2021) se
+  actualizó con datos reales extraídos de la API del Banco Mundial
+  (indicador NY.GDP.MKTP.KD), en vez de arrastrar el último valor
+  disponible.
+
+### Cobertura y exclusiones
+
+El panel cubre 197 países socio. Se excluyeron del panel:
+- Entidades políticas disueltas antes de 2017 (ej. Unión Soviética,
+  Checoslovaquia, Yugoslavia, Alemania Oriental).
+- Microestados y territorios dependientes sin peso comercial propio
+  reportado de forma independiente (ej. islas del Pacífico y el Caribe,
+  territorios de ultramar).
+- Países con datos de PIB no disponibles en el Banco Mundial por motivos
+  de aislamiento internacional o conflicto activo (Corea del Norte,
+  Siria, Sudán del Sur).
+
+Taiwán se mantuvo en el panel pese a no tener PIB reportado por el Banco
+Mundial (por motivos de reconocimiento político, no de tamaño económico);
+queda pendiente completar este dato con una fuente alternativa (FMI) o
+excluirlo, según se defina.
+
+### Pendiente de integrar
+
+- Variable de tipo de producto exportado (código HS), peso neto y precio
+  implícito: en proceso de unión con la base de comercio a nivel producto
+  (HS6, revisiones HS2017/HS2022 — pendiente resolver la concordancia
+  entre ambas nomenclaturas antes de integrar al panel final).
 ---
 
 ## 5. Estado Actual del Proyecto
